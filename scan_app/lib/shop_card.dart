@@ -12,7 +12,14 @@ class Shop_card extends StatefulWidget {
 }
 
 class _Shop_cardState extends State<Shop_card> {
-  var Slist = new Shop_list();
+      List<String> cardList = [];
+
+  void additem (String name, int price, String id){
+   
+    String newItemJson ='{"naam":"$name" , "price": "$price" , "count":"1","id": "$id"}';
+    
+    cardList.add(newItemJson);
+  }
   
 
   @override
@@ -48,12 +55,12 @@ class _Shop_cardState extends State<Shop_card> {
           double getprice = await getdata.getprice();
               print("add product: $getname prijs: ${getprice.toString()}");
 
-            Slist.additem(getname, getprice.toInt(),qrResult);
+            additem(getname, getprice.toInt(),qrResult);
           
            
 
-           if (Slist.cardList.isNotEmpty){
-                  print("new list: ${Slist.cardList}");
+           if (cardList.isNotEmpty){
+                  print("new list: $cardList");
            }
           }else{
             print("error");
