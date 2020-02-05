@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:majascan/majascan.dart'; 
 import 'api.dart';
-
+import 'shop_list.dart';
 
 
 class Shop_card extends StatefulWidget {
@@ -12,14 +12,7 @@ class Shop_card extends StatefulWidget {
 }
 
 class _Shop_cardState extends State<Shop_card> {
-  List<String> cardList = [];
-
-  void additem (String name, int price, String id){
-   
-    String newItemJson ='{"naam":"$name" , "price": "$price" , "count":"1","id": "$id"}';
-    
-    cardList.add(newItemJson);
-  }
+  var Slist = new Shop_list();
   
 
   @override
@@ -55,12 +48,12 @@ class _Shop_cardState extends State<Shop_card> {
           double getprice = await getdata.getprice();
               print("add product: $getname prijs: ${getprice.toString()}");
 
-            additem(getname, getprice.toInt(),qrResult);
+            Slist.additem(getname, getprice.toInt(),qrResult);
           
            
 
-           if (cardList.isNotEmpty){
-                  print("new list: $cardList");
+           if (Slist.cardList.isNotEmpty){
+                  print("new list: ${Slist.cardList}");
            }
           }else{
             print("error");
