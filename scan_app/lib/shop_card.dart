@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:majascan/majascan.dart'; 
 import 'api.dart';
-
+import 'shop_list.dart';
 
 
 class Shop_card extends StatefulWidget {
@@ -33,7 +33,17 @@ class _Shop_cardState extends State<Shop_card> {
           )
         
         ),
-      body: Center(child:Text("hallo")),
+
+
+
+
+      body: Shop_list(list: cardList),
+
+
+
+
+
+
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromRGBO(255, 138, 1, 1),
         onPressed: () async{
@@ -54,8 +64,10 @@ class _Shop_cardState extends State<Shop_card> {
           String getname = await getdata.getname();
           double getprice = await getdata.getprice();
               print("add product: $getname prijs: ${getprice.toString()}");
-
-            additem(getname, getprice.toInt(),qrResult);
+            setState(() {
+              additem(getname, getprice.toInt(),qrResult);
+            });
+            
           
            
 
