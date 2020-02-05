@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Shop_list extends StatefulWidget {
 
-  final List<String> list;
+  final List<String> list; 
 
   const Shop_list({ this.list});
   @override
