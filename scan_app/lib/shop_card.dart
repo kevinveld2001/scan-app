@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:majascan/majascan.dart'; 
 import 'api.dart';
-import 'shop_list.dart';
+
 
 
 class Shop_card extends StatefulWidget {
