@@ -18,7 +18,7 @@ class RestApi{
     
     Future<double> getprice() async {
         //get and return price value 
-       return _data['fields']['prijs']['doubleValue'];
+       return _data['fields']['prijs']['doubleValue'].toDouble();
 
     }
 
