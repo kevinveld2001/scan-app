@@ -11,15 +11,31 @@ class RestApi{
   }
 
     Future<String> getname() async {
+      print(_data['fields']['name']['stringValue'].toString());
         //return the name from the product
        return _data['fields']['name']['stringValue'].toString();
 
     }
     
     Future<double> getprice() async {
-        //get and return price value 
-       return _data['fields']['prijs']['doubleValue'].toDouble();
+      /*
+      the data in the database can val under doublevalue and integervalue
+      it will check withch it is and in case it is integerValue
+      than it will be parst to double
+      */
+      if(_data['fields']['prijs']['doubleValue'] != null){
+        
+        return _data['fields']['prijs']['doubleValue'];
+      
+      }else if(_data['fields']['prijs']['integerValue'] != null){
 
+        return double.parse(_data['fields']['prijs']['integerValue']);
+      
+      }
+
+      //this line will make my editor to shut up
+      return 0;
+      
     }
 
 
