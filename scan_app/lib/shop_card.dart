@@ -15,7 +15,7 @@ class _Shop_cardState extends State<Shop_card> {
   
     List<String> cardList = [];
 
-  void additem (String name, int price, String id){
+  void additem (String name, String price, String id){
    //make a niew object
     String newItemJson ='{"naam":"$name" , "price": "$price" , "count":"1","id": "$id"}';
     //add the niew object to the list
@@ -64,6 +64,7 @@ class _Shop_cardState extends State<Shop_card> {
               //get data from firebase
           var getdata = new RestApi(qrResult);
           var didIt = await getdata.loadData();
+
           //check if data is found on firebase
           if(didIt){
           String getname = await getdata.getname();//get the product name
@@ -71,7 +72,7 @@ class _Shop_cardState extends State<Shop_card> {
               print("add product: $getname prijs: ${getprice.toString()}");
             setState(() {
               //add item to list
-              additem(getname, getprice.toInt(),qrResult);
+              additem(getname, getprice.toString(),qrResult);
             });
             
           
