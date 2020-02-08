@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'shop_card.dart';
 
 class Shop_list extends StatefulWidget {
 
@@ -22,7 +24,7 @@ class _Shop_listState extends State<Shop_list> {
             color: Color.fromRGBO(245, 245, 245, 1),
             child: Container(
               height: 100,
-              child: InCard(carddata: widget.list[index]),
+              child: InCard(carddata: widget.list[index],index: index,),
             ),
           ),
           ); 
@@ -34,18 +36,83 @@ class _Shop_listState extends State<Shop_list> {
 }
 
 
-class InCard extends StatelessWidget {
+
+class InCard extends StatefulWidget {
   
-
-     const InCard({this.carddata }); 
-
+  const InCard({this.carddata, this.index}); 
 
   final String carddata;
+  final int index;
 
   @override
+  _InCardState createState() => _InCardState();
+}
+
+class _InCardState extends State<InCard> {
+    int nummber = 1;
+  @override
   Widget build(BuildContext context) {
+    
     return Container(
-      child: Text(carddata),
+      child: Row(children: <Widget>[
+        Container(
+          child: Image.network("https://firebasestorage.googleapis.com/v0/b/scanapp-88027.appspot.com/o/items%2F${json.decode(widget.carddata)['id']}.png?alt=media"),
+          width: 100,
+          height: 100,
+          
+        ),
+        
+        Column(
+          children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+            Text(
+              json.decode(widget.carddata)['naam'],
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+              
+              ),
+          ],),
+          Padding(
+            padding: EdgeInsets.all(10),
+          child:Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+            Text("€ "+json.decode(widget.carddata)['price'],),
+            SizedBox(width:20),
+            Text("x "+nummber.toString(),),
+            SizedBox(width:20),
+              IconButton( icon: Icon(Icons.arrow_drop_up),onPressed: (){
+                setState(() {
+                  nummber++;
+                  print(nummber);
+                });
+              },),
+              
+              IconButton( icon: Icon(Icons.arrow_drop_down),onPressed: (){
+                setState(() {
+                  nummber--;
+
+                  if(nummber <= 0){
+                    nummber = 1;
+
+                  }
+                  print(nummber);
+                });
+              },),
+          ],),
+          ),
+        ],
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        ),
+        
+      ],
+      
+      ),
+      
     );
   }
 }
