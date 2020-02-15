@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'shop_card.dart';
+import 'package:provider/provider.dart';
+import 'notify.dart';
 
 class Shop_list extends StatefulWidget {
 
@@ -50,9 +52,11 @@ class InCard extends StatefulWidget {
 
 class _InCardState extends State<InCard> {
     int nummber = 1;
+    
   @override
   Widget build(BuildContext context) {
-    
+    var notify = Provider.of<Notify>(context);
+
     return Container(
       child: Row(children: <Widget>[
         Container(
@@ -92,6 +96,7 @@ class _InCardState extends State<InCard> {
               IconButton( icon: Icon(Icons.arrow_drop_up),onPressed: (){
                 setState(() {
                   nummber++;
+                  notify.add(double.parse(json.decode(widget.carddata)['price']));
                   print(nummber);
                 });
               },),
@@ -102,7 +107,9 @@ class _InCardState extends State<InCard> {
 
                   if(nummber <= 0){
                     nummber = 1;
-
+                    
+                  }else{
+                    notify.remove(double.parse(json.decode(widget.carddata)['price']));
                   }
                   print(nummber);
                 });

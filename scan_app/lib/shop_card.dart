@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:majascan/majascan.dart'; 
+import 'package:majascan/majascan.dart';
+import 'package:scan_app/notify.dart'; 
 import 'api.dart';
 import 'shop_list.dart';
-
-
+import 'package:provider/provider.dart';
+import './notify.dart';
 class Shop_card extends StatefulWidget {
   @override
   _Shop_cardState createState() => _Shop_cardState();
@@ -25,9 +26,12 @@ class _Shop_cardState extends State<Shop_card> {
 
   @override
   Widget build(BuildContext context) {
+
+    var notify = Provider.of<Notify>(context);
+
     return Scaffold(
       appBar: AppBar(
-          title:Text("Self Scanner",
+          title:Text("Self Scanner - € ${notify.totalPrice.toStringAsFixed(2)}",
             style: TextStyle(
               color: Colors.white,
             ),
@@ -72,7 +76,10 @@ class _Shop_cardState extends State<Shop_card> {
               print("add product: $getname prijs: ${getprice.toString()}");
             setState(() {
               //add item to list
-              additem(getname, getprice.toString(),qrResult);
+              additem(getname, getprice.toStringAsFixed(2),qrResult);
+              
+              
+              notify.add(getprice);
             });
             
           

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'shop_card.dart';
-void main() => runApp(MyApp());
+import 'package:provider/provider.dart';
+import './notify.dart';
+void main() => runApp(  MyApp()  );
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(create: (context)=>Notify(),
+    child:MaterialApp(
       debugShowCheckedModeBanner: false,
       
       theme: ThemeData(
@@ -17,6 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       home:Shop_card(),
       
-    );
+    ),
+    ) ;
   }
 }
